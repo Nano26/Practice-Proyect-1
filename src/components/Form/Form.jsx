@@ -1,15 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Form.css";
 
 const Form = (props) => {
+  const [currentSavings, setCurrentSavings] = useState(10000);
+  const [yearlyContribution, setYearlyContribution] = useState(1200);
+  const [expectedReturn, setExpectedReturn] = useState(7);
+  const [duration, setDuration] = useState(5);
+
   const submitHandler = (event) => {
     event.preventDefault();
-    props.formHandler(event);
+    props.formHandler({
+      "current-savings": currentSavings,
+      "yearly-contribution": yearlyContribution,
+      "expected-return": expectedReturn,
+      "duration": duration
+    });
   };
 
-  const resetHandler = () => {};
+  const resetHandler = () => {
+    setCurrentSavings(10000);
+    setYearlyContribution(1200);
+    setExpectedReturn(7);
+    setDuration(5);
+  };
 
-  const inputChangeHandler = (input, value) => {};
+  const inputChangeHandler = (input, value) => {
+    if (input === "current-savings") {
+      setCurrentSavings(value);
+      return;
+    }
+    if (input === "yearly-contribution") {
+      setYearlyContribution(value);
+      return;
+    }
+    if (input === "expected-return") {
+      setExpectedReturn(value);
+      return;
+    }
+    if (input === "duration") {
+      setDuration(value);
+      return;
+    }
+  };
 
   return (
     <form onSubmit={submitHandler} className="form">
@@ -20,6 +52,7 @@ const Form = (props) => {
             onChange={(event) => {
               inputChangeHandler("current-savings", event.target.value);
             }}
+            value={currentSavings}
             type="number"
             id="current-savings"
           />
@@ -30,6 +63,7 @@ const Form = (props) => {
             onChange={(event) => {
               inputChangeHandler("yearly-contribution", event.target.value);
             }}
+            value={yearlyContribution}
             type="number"
             id="yearly-contribution"
           />
@@ -44,6 +78,7 @@ const Form = (props) => {
             onChange={(event) => {
               inputChangeHandler("expected-return", event.target.value);
             }}
+            value={expectedReturn}
             type="number"
             id="expected-return"
           />
@@ -54,6 +89,7 @@ const Form = (props) => {
             onChange={(event) => {
               inputChangeHandler("duration", event.target.value);
             }}
+            value={duration}
             type="number"
             id="duration"
           />
